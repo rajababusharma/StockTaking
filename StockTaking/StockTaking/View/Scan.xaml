@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StockTaking.View.Scan">
+    <StackLayout>
+        <Frame BackgroundColor="#000508" Padding="24" CornerRadius="0" BorderColor="Black">
+            <Label Text="Welcome to Stock Taking App!" HorizontalTextAlignment="Center" TextColor="White" FontSize="22"/>
+        </Frame>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Check to enable duplicate scanning"
+                Margin="10,0,0,0"
+             
+                FontSize="18"
+                TextColor="Black"></Label>
+            <CheckBox x:Name="chk_duplicate" Color="White" BackgroundColor="Green" IsChecked="{Binding CheckDuplicate}"></CheckBox>
+        </StackLayout>
+
+      
+
+        <Label Margin="10,0,0,0" Text="Scan SKU/Articles/Packages:"
+            FontSize="18"
+            TextColor="Black"></Label>
+
+        <Entry x:Name="entrysku" Margin="5"
+               
+                Text="{Binding SKU, Mode=TwoWay}"
+                Grid.Column="0"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center">
+
+        </Entry>
+        <StackLayout Margin="10,0,0,0" Orientation="Horizontal">
+            <Label Text="Total count : "
+                TextColor="Black"
+                FontSize="18"></Label>
+            <Label x:Name="txtCount"
+                Text="{Binding COUNT}"
+                TextColor="Red"
+                FontSize="20"></Label>
+        </StackLayout>
+
+        <BoxView HeightRequest="3"
+              BackgroundColor="#003E38"
+              Margin="0,15,0,0"></BoxView>
+        <Grid ColumnSpacing="3"
+           BackgroundColor="#A2AC07">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+
+            </Grid.ColumnDefinitions>
+            <BoxView Grid.Row="0"
+                  Grid.Column="0"
+                  BackgroundColor="#003E38" />
+            <Label Text="Articles"
+                Grid.Column="0"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="White" />
+            <BoxView Grid.Row="0"
+                  Grid.Column="1"
+                  BackgroundColor="#003E38" />
+
+            <Label Text="Count"
+                Grid.Column="1"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="White" />
+        </Grid>
+        <ListView x:Name="docketView"
+               SeparatorColor="Green"
+               HorizontalOptions="FillAndExpand"
+               HasUnevenRows="True"
+               IsPullToRefreshEnabled="False"
+               ItemsSource="{Binding ObjDocketList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <ViewCell>
+                        <Frame BorderColor="Green"
+                            BackgroundColor="LightYellow">
+
+
+                            <Grid ColumnSpacing="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <!-- <ColumnDefinition Width="*"></ColumnDefinition>-->
+                                </Grid.ColumnDefinitions>
+                                <!--<Label Text="{Binding BATCH_NO}"
+                                 
+                                    TextColor="Black"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Grid.Column="0">
+                                </Label>-->
+                                <Label Text="{Binding ARTICLES}"
+                                    
+                                    TextColor="Black"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Grid.Column="0"></Label>
+                                <Label Text="{Binding COUNT}"
+                                   
+                                    TextColor="Black"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Grid.Column="1"></Label>
+                            </Grid>
+                        </Frame>
+
+                    </ViewCell>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="btnsubmit"
+             Grid.Column="0"
+             Text="Save to File"
+             BorderColor="Black"
+             BorderWidth="1"
+             Margin="0,5,0,5"
+             Command="{Binding SUBMIT}"
+           FontSize="20"
+             FontAttributes="Bold"
+             BackgroundColor="DarkOrange"
+             CornerRadius="10"></Button>
+    </StackLayout>
+</ContentPage>

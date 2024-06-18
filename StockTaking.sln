@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTaking.Android", "StockTaking\StockTaking.Android\StockTaking.Android.csproj", "{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTaking", "StockTaking\StockTaking\StockTaking.csproj", "{DA1A66CA-3C7C-469C-8E64-232D35561417}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DA1A66CA-3C7C-469C-8E64-232D35561417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1A66CA-3C7C-469C-8E64-232D35561417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1A66CA-3C7C-469C-8E64-232D35561417}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DA1A66CA-3C7C-469C-8E64-232D35561417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1A66CA-3C7C-469C-8E64-232D35561417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA1A66CA-3C7C-469C-8E64-232D35561417}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4F47832-5CD5-462A-AEA9-E774796222E6}
+	EndGlobalSection
+EndGlobal

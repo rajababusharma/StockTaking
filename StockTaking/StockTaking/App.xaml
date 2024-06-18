@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StockTaking.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="PrimaryColor">#5584AC</Color>
+            <Color x:Key="PrimaryVariantColor">#22577E</Color>
+
+            <Color x:Key="SecondaryColor">#FFE162</Color>
+            <Color x:Key="SecondaryVariantColor">#FFC900</Color>
+
+            <Color x:Key="BackgroundColor">#001933</Color>
+            <Color x:Key="PrimaryBackgroundColor">#283618</Color>
+            <Color x:Key="SecondaryBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="ScanEntryBackground">#BC6C25</Color>
+            <Color x:Key="PopupColor">#D3D3D3</Color>
+            <Color x:Key="TooltripColor">#FF0000</Color>
+            <Color x:Key="PlaceHOlderTextColor">black</Color>
+
+            <Style x:Key="HeaderLabelFont"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#000000" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="28" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+
+            </Style>
+
+            <Style x:Key="MediumLabelFont"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#000000" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="20" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+            </Style>
+            <Style x:Key="MediumLabelFontWithWhiteBack"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#FFFFFF" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="20" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+            </Style>
+
+            <Style x:Key="NormalLabelFont"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#000000" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="18" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+            </Style>
+
+            <Style x:Key="SmallLabelFont"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#000000" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+            </Style>
+
+            <Style x:Key="ButtonStyle"
+                   TargetType="Button">
+                <Setter Property="TextColor"
+                        Value="#FFFFFF" />
+                <Setter Property="FontSize"
+                        Value="20" />
+                <Setter Property="BackgroundColor"
+                        Value="#5584AC" />
+                <Setter Property="CornerRadius"
+                        Value="10" />
+                <Setter Property="BorderWidth"
+                        Value="2" />
+                <Setter Property="BorderColor"
+                        Value="#22577E" />
+                <Setter Property="Margin"
+                        Value="10" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>
