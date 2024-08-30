@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StockTaking.View.Scan">
+             x:Class="StockTaking.View.Scan"
+             Title="Welcome to Stock Taking App!">
     <StackLayout>
-        <Frame BackgroundColor="#000508" Padding="24" CornerRadius="0" BorderColor="Black">
-            <Label Text="Welcome to Stock Taking App!" HorizontalTextAlignment="Center" TextColor="White" FontSize="22"/>
-        </Frame>
-        <StackLayout Orientation="Horizontal">
+
+        <StackLayout Orientation="Horizontal"
+                     Margin="10,5,0,0">
             <Label Text="Check to enable duplicate scanning"
-                Margin="10,0,0,0"
+               
              
-                FontSize="18"
+                FontSize="18" FontAttributes="Bold"
                 TextColor="Black"></Label>
-            <CheckBox x:Name="chk_duplicate" Color="White" BackgroundColor="Green" IsChecked="{Binding CheckDuplicate}"></CheckBox>
+            <CheckBox x:Name="chk_duplicate" IsChecked="{Binding CheckDuplicate}"></CheckBox>
         </StackLayout>
 
       
@@ -22,7 +22,7 @@
             TextColor="Black"></Label>
 
         <Entry x:Name="entrysku" Margin="5"
-               
+               Placeholder="Scan here!"
                 Text="{Binding SKU, Mode=TwoWay}"
                 Grid.Column="0"
                 HorizontalTextAlignment="Start"
@@ -31,10 +31,10 @@
         </Entry>
         <StackLayout Margin="10,0,0,0" Orientation="Horizontal">
             <Label Text="Total count : "
-                TextColor="Black"
+                TextColor="Black" FontAttributes="Bold"
                 FontSize="18"></Label>
             <Label x:Name="txtCount"
-                Text="{Binding COUNT}"
+                   Text="{Binding TOTALCOUNT}"
                 TextColor="Red"
                 FontSize="20"></Label>
         </StackLayout>
@@ -50,27 +50,16 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-
-
             </Grid.ColumnDefinitions>
             <BoxView Grid.Row="0"
                   Grid.Column="0"
                   BackgroundColor="#003E38" />
             <Label Text="Articles"
-                Grid.Column="0"
+                Grid.Column="0" FontAttributes="Bold" FontSize="18"
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center"
                 TextColor="White" />
-            <BoxView Grid.Row="0"
-                  Grid.Column="1"
-                  BackgroundColor="#003E38" />
-
-            <Label Text="Count"
-                Grid.Column="1"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                TextColor="White" />
+           
         </Grid>
         <ListView x:Name="docketView"
                SeparatorColor="Green"
@@ -93,7 +82,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                   
                                     <!-- <ColumnDefinition Width="*"></ColumnDefinition>-->
                                 </Grid.ColumnDefinitions>
                                 <!--<Label Text="{Binding BATCH_NO}"
@@ -109,12 +98,7 @@
                                     VerticalTextAlignment="Center"
                                     HorizontalTextAlignment="Center"
                                     Grid.Column="0"></Label>
-                                <Label Text="{Binding COUNT}"
-                                   
-                                    TextColor="Black"
-                                    VerticalTextAlignment="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Grid.Column="1"></Label>
+
                             </Grid>
                         </Frame>
 
@@ -126,13 +110,14 @@
         <Button x:Name="btnsubmit"
              Grid.Column="0"
              Text="Save to File"
+                TextColor="White"
              BorderColor="Black"
              BorderWidth="1"
-             Margin="0,5,0,5"
+             Margin="10,5,10,5"
              Command="{Binding SUBMIT}"
            FontSize="20"
              FontAttributes="Bold"
-             BackgroundColor="DarkOrange"
-             CornerRadius="10"></Button>
+                BackgroundColor="{x:DynamicResource PrimaryColor}"
+                CornerRadius="10"></Button>
     </StackLayout>
 </ContentPage>

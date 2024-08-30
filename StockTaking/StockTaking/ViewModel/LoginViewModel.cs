@@ -16,9 +16,15 @@ namespace StockTaking.ViewModels
         DatabaseController database;
         public Command LOGIN { get; set; }
         public Command CreateUsers { get; set; }
+
+        public string AppVersion { get; set; }
+
         public LoginViewModel()
         {
             database = new DatabaseController();
+            string appVersion = AppInfo.VersionString;
+            AppVersion = "App Version: " + appVersion;
+
             LOGIN = new Command(() => 
             {
                 Login();

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:StockTaking.CustomRenderer"
              x:Class="StockTaking.Views.CreateUsers">
     <ScrollView Orientation="Vertical">
         <StackLayout BackgroundColor="White">
@@ -42,12 +43,12 @@
                        Style="{DynamicResource SmallLabelFont}"
                    Grid.Row="0"
                    Grid.Column="0"></Label>
-                    <Entry x:Name="username"
+                    <local:EntryBorder x:Name="username"
                    Placeholder="user name"
                    Grid.Row="0"
                    Grid.Column="1">
 
-                    </Entry>
+                    </local:EntryBorder>
                     <Label Text="Password:"
                        Margin="10,0,0,0"
                        HorizontalTextAlignment="Start"
@@ -55,11 +56,11 @@
                    Grid.Row="1"
                    Grid.Column="0"></Label>
 
-                    <Entry x:Name="password"
+                    <local:EntryBorder x:Name="password"
                                        IsPassword="True"
                                Placeholder="password"
                                Grid.Row="1"
-                               Grid.Column="1"></Entry>
+                               Grid.Column="1"></local:EntryBorder>
 
                     <Label Text="Confirm Password:"
     Margin="10,0,0,0"
@@ -68,11 +69,11 @@ Style="{DynamicResource SmallLabelFont}"
 Grid.Row="2"
 Grid.Column="0"></Label>
 
-                    <Entry x:Name="confirmpassword"
+                    <local:EntryBorder x:Name="confirmpassword"
                     IsPassword="True"
             Placeholder="confirmpassword"
             Grid.Row="2"
-            Grid.Column="1"></Entry>
+            Grid.Column="1"></local:EntryBorder>
 
                     <Grid Grid.Row="5"
                       Grid.ColumnSpan="2">

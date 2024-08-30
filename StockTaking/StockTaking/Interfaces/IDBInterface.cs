@@ -9,5 +9,6 @@ namespace StockTaking.Interfaces
     {
         SQLiteConnection GetConnection();
         string GetCSVPath();
+        string GetPDFPath();
     }
 }

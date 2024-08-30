@@ -7,6 +7,9 @@ using Android.OS;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using Android;
+using Xamarin.Essentials;
+using Xamarin.Forms.Platform.Android;
+using Platform = Xamarin.Forms.Platform.Android.Platform;
 
 namespace StockTaking.Droid
 {
@@ -30,13 +33,40 @@ namespace StockTaking.Droid
         protected override void OnResume()
         {
             base.OnResume();
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Android.Content.PM.Permission.Granted)
-            {
-            }
-            else
-            {
-                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 533);
-            }
+           
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Android.Content.PM.Permission.Granted)
+                {
+                }
+                else
+                {
+                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 533);
+                }
+           
+                /*if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadMediaAudio) == (int)Android.Content.PM.Permission.Granted)
+                {
+                }
+                else
+                {
+                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.ReadMediaAudio }, 533);
+                }
+
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadMediaImages) == (int)Android.Content.PM.Permission.Granted)
+                {
+                }
+                else
+                {
+                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.ReadMediaImages }, 534);
+                }
+
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadMediaVideo) == (int)Android.Content.PM.Permission.Granted)
+                {
+                }
+                else
+                {
+                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.ReadMediaVideo }, 535);
+                }*/
+            
+
         }
     }
 }

@@ -18,7 +18,7 @@ namespace StockTaking.View
         ScanViewModel viewModel;
         DatabaseController database;
         bool focus_status = false;
-        string user = "";
+       
         public Scan()
         {
             InitializeComponent();
@@ -27,15 +27,20 @@ namespace StockTaking.View
             database = new DatabaseController();
             entrysku.Completed += Entrysku_Completed;
             entrysku.Unfocused += Entrysku_Unfocused;
-            viewModel.ObjDocketList = database.GetAll_Articles();
-
-            txtCount.Text = database.GetTotalArticleCount().ToString();
-            user = Preferences.Get(Constants.username,"");
+           
+            viewModel.USER = Preferences.Get(Constants.username,"");
+            Device.BeginInvokeOnMainThread( () =>
+            {
+                // entrysku.CursorPosition = entrysku.Text.Length + 1;
+               // entrysku.Focus();
+                viewModel.ObjDocketList = database.GetAll_Articles();
+                viewModel.TOTALCOUNT = database.GetTotalArticleCount().ToString();
+            });
         }
 
         private void Entrysku_Unfocused(object sender, FocusEventArgs e)
         {
-            Device.StartTimer(TimeSpan.FromMilliseconds(2000.0), TimerElapsed);
+            Device.StartTimer(TimeSpan.FromMilliseconds(5000.0), TimerElapsed);
 
             bool TimerElapsed()
             {
@@ -56,52 +61,64 @@ namespace StockTaking.View
             }
         }
 
-        private void Entrysku_Completed(object sender, EventArgs e)
+        private async void Entrysku_Completed(object sender, EventArgs e)
         {
-            ValidateDocket();
+           await ValidateDocket();
         }
 
-        private void ValidateDocket()
+        private async Task ValidateDocket()
         {
             try
             {
-
+                focus_status = true;
                 DateTime date = DateTime.Now;
                 if (!string.IsNullOrEmpty(entrysku.Text))
                 {
                     /* if (entrydocket.Text.Length == 10)
                      {*/
-                    viewModel.ARTICLES = entrysku.Text;
+                    viewModel.SKU = entrysku.Text;
                     viewModel.DATETIME = date.ToString();
                     //DisplayAlert("Alert", "Entry text changed", "Ok");
 
-                    int result = database.CheckArticleDuplicate(viewModel.ARTICLES);
+                    int result = database.CheckArticleDuplicate(viewModel.SKU);
                     if (result > 0)
                     {
                         if (!chk_duplicate.IsChecked)
                         {
                             SpeakNow("Already Scanned");
-                            int k = database.Update_Articles(viewModel.ARTICLES, viewModel.DATETIME, 1,user);
+                            int k = database.Update_Articles(viewModel.SKU, viewModel.DATETIME, 1, viewModel.USER);
                             if (k > 0)
                             {
-                                viewModel.ObjDocketList = database.GetAll_Articles();
+                               
 
-                                entrysku.CursorPosition = 0;
-                                viewModel.ARTICLES = "";
-                                entrysku.Text = "";
+                               // entrysku.CursorPosition = 0;
+                              
+                               
+                                Device.BeginInvokeOnMainThread(() => {
+                                    entrysku.CursorPosition = entrysku.Text.Length + 1;
+                                     entrysku.Text = "";
+                                    viewModel.SKU = "";
+                                    viewModel.ObjDocketList = database.GetAll_Articles();
+                                    focus_status = false;
+                                });
+
                             }
                         }
                         else
                         {
                             //SpeakNow("Already Scanned");
-                            int k = database.Update_Articles(viewModel.ARTICLES, viewModel.DATETIME, result + 1, user);
+                            int k = database.Update_Articles(viewModel.SKU, viewModel.DATETIME, result + 1, viewModel.USER);
                             if (k > 0)
                             {
-                                viewModel.ObjDocketList = database.GetAll_Articles();
+                               
 
-                                entrysku.CursorPosition = 0;
-                                viewModel.ARTICLES = "";
-                                entrysku.Text = "";
+                                Device.BeginInvokeOnMainThread(() => {
+                                    entrysku.CursorPosition = entrysku.Text.Length + 1;
+                                    entrysku.Text = "";
+                                    viewModel.SKU = "";
+                                    viewModel.ObjDocketList = database.GetAll_Articles();
+                                    focus_status = false;
+                                });
                             }
                         }
 
@@ -110,44 +127,61 @@ namespace StockTaking.View
                     {
                         List<Articles> mylist = new List<Articles>();
                         Articles articles = new Articles();
-                        articles.ARTICLES = viewModel.ARTICLES;
+                        articles.ARTICLES = viewModel.SKU;
                         articles.DATETIME = viewModel.DATETIME;
                         articles.COUNT = 1;
-                        articles.USER = user;
+                        articles.USER = viewModel.USER;
                         mylist.Add(articles);
                         int p = database.Insert_IntoARTICLES(mylist);
                         if (p > 0)
                         {
-                            viewModel.ObjDocketList = database.GetAll_Articles();
-
-                            entrysku.CursorPosition = 0;
-                            viewModel.ARTICLES = "";
-                            entrysku.Text = "";
+                            Device.BeginInvokeOnMainThread(() => {
+                                entrysku.CursorPosition = entrysku.Text.Length + 1;
+                                entrysku.Text = "";
+                                viewModel.SKU = "";
+                                viewModel.ObjDocketList = database.GetAll_Articles();
+                                focus_status = false;
+                            });
                         }
 
 
                     }
-                    entrysku.CursorPosition = 0;
-                    viewModel.ARTICLES = "";
-                    entrysku.Text = "";
+                   /* Device.BeginInvokeOnMainThread(() => {
+                        entrysku.CursorPosition = entrysku.Text.Length + 1;
+                        entrysku.Text = "";
+                        viewModel.SKU = "";
+                       // viewModel.ObjDocketList = database.GetAll_Articles();
+                    });*/
 
                 }
                 else
                 {
 
-                    entrysku.CursorPosition = 0;
-                    viewModel.ARTICLES = "";
-                    entrysku.Text = "";
+                    Device.BeginInvokeOnMainThread(() => {
+                        entrysku.CursorPosition = entrysku.Text.Length + 1;
+                        entrysku.Text = "";
+                        viewModel.SKU = "";
+                        // viewModel.ObjDocketList = database.GetAll_Articles();
+                        focus_status = false;
+                    });
                 }
-                txtCount.Text = database.GetTotalArticleCount().ToString();
-
+               
+                Device.BeginInvokeOnMainThread(() => {
+                    viewModel.TOTALCOUNT = database.GetTotalArticleCount().ToString();
+                });
             }
             catch (Exception excp)
             {
 
-                entrysku.CursorPosition = 0;
-                viewModel.ARTICLES = "";
-                entrysku.Text = "";
+                Device.BeginInvokeOnMainThread(async () => {
+                    entrysku.CursorPosition = entrysku.Text.Length + 1;
+                    entrysku.Text = "";
+                    viewModel.SKU = "";
+                    focus_status = false;
+                    await DisplayAlert("Alert", excp.Message, "OK");
+
+                    // viewModel.ObjDocketList = database.GetAll_Articles();
+                });
 
             }
         }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTaking.Android", "StockTaking\StockTaking.Android\StockTaking.Android.csproj", "{127112A1-07A7-47D3-8BC2-CC5ED50E92AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTaking", "StockTaking\StockTaking\StockTaking.csproj", "{DA1A66CA-3C7C-469C-8E64-232D35561417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockTaking", "StockTaking\StockTaking\StockTaking.csproj", "{DA1A66CA-3C7C-469C-8E64-232D35561417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

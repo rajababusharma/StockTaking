@@ -1,12 +1,18 @@
-﻿using StockTaking.DB;
+﻿using MigraDocCore.DocumentObjectModel;
+using MigraDocCore.Rendering;
+using PdfSharpCore.Fonts;
+using StockTaking.DB;
 using StockTaking.Interfaces;
 using StockTaking.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
+using static System.Collections.Specialized.BitVector32;
+using Section = MigraDocCore.DocumentObjectModel.Section;
 
 namespace StockTaking.ViewModels
 {
@@ -16,7 +22,8 @@ namespace StockTaking.ViewModels
         public ScanViewModel()
         {
             database = new DatabaseController();
-           
+            GlobalFontSettings.FontResolver = new FileFontResolver();
+
         }
 
         private string count;
@@ -47,22 +54,22 @@ namespace StockTaking.ViewModels
             }
         }
 
-        /*private string batch;
-        public string BATCH_NO
+        private string _user;
+        public string USER
         {
             get
             {
-                return batch;
+                return _user;
             }
             set
             {
-                batch = value;
-                NotifyPropertyChanged("BATCH_NO");
+                _user = value;
+                NotifyPropertyChanged("USER");
             }
-        }*/
+        }
 
         private string article;
-        public string ARTICLES
+        public string SKU
         {
             get
             {
@@ -71,7 +78,7 @@ namespace StockTaking.ViewModels
             set
             {
                 article = value;
-                NotifyPropertyChanged("ARTICLES");
+                NotifyPropertyChanged("SKU");
             }
         }
 
@@ -109,45 +116,98 @@ namespace StockTaking.ViewModels
         {
             get
             {
-                return new Command(SubmitDetails);
+                return new Command(SubmitDetailsPdf1);
             }
         }
 
-        private async void SubmitDetails(object obj)
+        public async void SubmitDetailsPdf1()
         {
             try
             {
 
-                var csvPath = DependencyService.Get<IDBInterface>().GetCSVPath();
+                var pdfPath = DependencyService.Get<IDBInterface>().GetPDFPath();
+
+
+
+               // string[] lines = ARTICLES.Split('\n');
+                Document doc = new Document();
+                Section section = doc.AddSection();
+
+                var font = new MigraDocCore.DocumentObjectModel.Font("Verdana", 12);
+                var HeaderFont = new MigraDocCore.DocumentObjectModel.Font("Verdana", 16);
+                MigraDocCore.DocumentObjectModel.Style style = doc.Styles["Normal"];
+                style.Font.Name = "Verdana";
+
+
+                //just font arrangements as you wish
+                // MigraDoc.DocumentObjectModel.Font font = new Font("Times New Roman", 15);
+                font.Bold = false;
+                HeaderFont.Bold = true;
+
+                Paragraph paragraph = section.AddParagraph();
+                paragraph.AddFormattedText("GRN Report", HeaderFont);
+                paragraph.AddLineBreak();
+               
+                //add each line to pdf 
+                List<Articles> articles = new List<Articles>();
+                articles = database.GetAll_Articles();
+          
+                int i=1;
+                foreach (var line in articles)
+                {
+                    Paragraph para = section.AddParagraph();
+                    para.AddFormattedText(i.ToString()+":", HeaderFont);
+
+                    Paragraph para1 = section.AddParagraph();
+                    para1.AddFormattedText(line.ARTICLES, font);
+
+                    Paragraph para2 = section.AddParagraph();
+                    para2.AddFormattedText("User: "+line.USER, font);
+
+                    Paragraph para3 = section.AddParagraph();
+                    para3.AddFormattedText("Date: "+line.DATETIME, font);
+
+                    para3.AddLineBreak();
+                    para3.AddLineBreak();
+                    i++;
+                }
+
+                //save pdf document
+                PdfDocumentRenderer renderer = new PdfDocumentRenderer();
+                renderer.Document = doc;
+                renderer.RenderDocument();
+                renderer.Save(pdfPath);
+                
+
+                database.Delete_AllArticles();
+                ObjDocketList = database.GetAll_Articles();
+
+               
+                TOTALCOUNT = database.GetTotalArticleCount().ToString();
+
+                await App.Current.MainPage.DisplayAlert("Alert", "Data saved in " + pdfPath + " location", "Ok");
+                SKU = "";
+                // Process.Start(pdfPath);
+            }
+            catch (Exception excp)
+            {
+                await App.Current.MainPage.DisplayAlert("Exception", excp.Message, "Ok");
+            }
+        }
+
+
+        /*private async void SubmitDetails(object obj)
+        {
+            try
+            {
+
+                var PdfPath = DependencyService.Get<IDBInterface>().GetPDFPath();
                // File.Create(csvPath);
               
                 List<Articles> articles = new List<Articles>();
                 articles = database.GetAll_Articles();
-                //// build the data in memory
-                //StringBuilder s = new StringBuilder();
-                //foreach (var listing in articles)
-                //{
-                //    s = s.AppendLine(listing.BATCH_NO + "," + listing.ARTICLES + "," + listing.DATETIME);
-                //}
-
-                //// write the data all at once
-                // File.WriteAllText(csvPath, s.ToString());
-                //s.Clear();
-                using (var logStream = new FileStream(csvPath, FileMode.Append, FileAccess.Write, FileShare.Write))
-                using (var streamWriter = new StreamWriter(logStream))
-                {
-                    foreach (var listing in articles)
-                    {
-                        streamWriter.WriteLine(listing.ARTICLES + "," + listing.COUNT + "," + listing.DATETIME + "," + listing.USER);
-                    }
-
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                    logStream.Close();
-                }
-
-                database.Delete_AllArticles();
-                ObjDocketList = database.GetAll_Articles();
+               
+               
               
                 await App.Current.MainPage.DisplayAlert("Alert", "Data saved in " + csvPath + " location", "Ok");
                 TOTALCOUNT = database.GetTotalArticleCount().ToString();
@@ -158,6 +218,6 @@ namespace StockTaking.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Exception", excp.Message, "Ok");
             }
-        }
+        }*/
     }
 }

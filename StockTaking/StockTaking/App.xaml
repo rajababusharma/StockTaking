@@ -6,7 +6,7 @@
         <ResourceDictionary>
 
             <Color x:Key="PrimaryColor">#5584AC</Color>
-            <Color x:Key="PrimaryVariantColor">#22577E</Color>
+            <Color x:Key="PrimaryVariantColor">#634A00</Color>
 
             <Color x:Key="SecondaryColor">#FFE162</Color>
             <Color x:Key="SecondaryVariantColor">#FFC900</Color>

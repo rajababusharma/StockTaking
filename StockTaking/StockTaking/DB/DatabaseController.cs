@@ -114,7 +114,7 @@ namespace StockTaking.DB
                         // Mylist = dbConn.Query<DocketDetList>("Select Docket_No,Articles,Scanned_status From DocketDetList");
                         // Mylist = dbConn.Table<DocketDetList_Actualloading>().ToList();
                         // Mylist = dbConn.Query<DocketDetList_Actualloading>("select * from DocketDetList_Actualloading order by Scanned_Article ASC");
-                        Mylist = dbConn.Query<Articles>("select * from Articles");
+                        Mylist = dbConn.Query<Articles>("select * from Articles order by DATETIME DESC");
                         dbConn.Dispose();
                         dbConn.Close();
                     }
@@ -162,10 +162,7 @@ namespace StockTaking.DB
                         Mylist = dbConn.Query<Articles>("Select * From Articles where ARTICLES=" + "'" + article + "'");
                         if (Mylist.Count > 0)
                         {
-                            foreach(var list in Mylist)
-                            {
-                                flag = flag + list.COUNT;
-                            }
+                            flag = Mylist.Count;
                         }
                         dbConn.Dispose();
                         dbConn.Close();
@@ -230,10 +227,7 @@ namespace StockTaking.DB
                         Mylist = dbConn.Query<Articles>("Select * From Articles");
                         if (Mylist.Count > 0)
                         {
-                            foreach (var list in Mylist)
-                            {
-                                flag = flag + list.COUNT;
-                            }
+                            flag = Mylist.Count;
                         }
                         dbConn.Dispose();
                         dbConn.Close();

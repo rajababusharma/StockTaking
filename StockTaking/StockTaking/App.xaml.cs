@@ -23,6 +23,7 @@ namespace StockTaking
 
         protected override void OnResume()
         {
+
         }
     }
 }
