@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using static System.Collections.Specialized.BitVector32;
@@ -188,6 +189,13 @@ namespace StockTaking.ViewModels
                 await App.Current.MainPage.DisplayAlert("Alert", "Data saved in " + pdfPath + " location", "Ok");
                 SKU = "";
                 // Process.Start(pdfPath);
+                if (pdfPath != null)
+                {
+                    await Launcher.OpenAsync(new OpenFileRequest
+                    {
+                        File = new ReadOnlyFile(pdfPath)
+                    });
+                }
             }
             catch (Exception excp)
             {
